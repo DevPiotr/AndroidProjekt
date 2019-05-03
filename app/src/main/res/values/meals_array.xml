@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Meals">
+        <item>Jajko</item>
+        <item>Banan</item>
+    </string-array>
+    
+    <string-array name="NutriValues">
+        <!-- Wartości odżywcze na 100g:
+             kcal;tłuszcz;węglowodany;białko-->
+
+        <!-- Jajko-->
+        <item>155;11;1.1;13</item>
+
+        <!-- Banan
+        TODO::To nie ma sensu zrób porządniej-->
+        <item>88;0.3;23;1.1</item>
+    </string-array>
+
+</resources>

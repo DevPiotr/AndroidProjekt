@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Projekt</string>
+
+    <!-- DetailActivity -->
+    <string name="mealDetailName">Nazwa posiłku</string>
+    <string name="mealDetailContext">Opis posiłku</string>
+    <string name="mealDetailStaticText">Wartość odżywcza:</string>
+    <string name="mealDetailPlaceholder">0</string>
+    <string name="mealDetailKcal">Kcal:</string>
+    <string name="mealDetailFat">Tłuszcz:</string>
+    <string name="mealDetailCarbohydrates">Węglowodany:</string>
+    <string name="mealDetailProtein">Białko:</string>
 </resources>

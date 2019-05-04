@@ -3,18 +3,21 @@
     <string-array name="Meals">
         <item>Jajko</item>
         <item>Banan</item>
+        <item>Jabłko</item>
     </string-array>
     
     <string-array name="NutriValues">
         <!-- Wartości odżywcze na 100g:
              kcal;tłuszcz;węglowodany;białko-->
 
-        <!-- Jajko-->
+        <!-- Jajko -->
         <item>155;11;1.1;13</item>
 
-        <!-- Banan
-        TODO::To nie ma sensu zrób porządniej-->
+        <!-- Banan -->
         <item>88;0.3;23;1.1</item>
+
+        <!-- Jabłko -->
+        <item>52;0.2;14;0.3</item>
     </string-array>
 
 </resources>

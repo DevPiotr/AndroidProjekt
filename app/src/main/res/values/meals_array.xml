@@ -5,7 +5,8 @@
         <item>Banan</item>
         <item>Jabłko</item>
     </string-array>
-    
+
+
     <string-array name="NutriValues">
         <!-- Wartości odżywcze na 100g:
              kcal;tłuszcz;węglowodany;białko-->

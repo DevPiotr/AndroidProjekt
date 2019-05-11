@@ -10,4 +10,8 @@
     <string name="mealDetailFat">Tłuszcz:</string>
     <string name="mealDetailCarbohydrates">Węglowodany:</string>
     <string name="mealDetailProtein">Białko:</string>
+
+    <!-- Main Activity -->
+    <string name="mainActivityButtonText">Stwórz diete!</string>
+    <string name="mainActivityPlainText">Posiłki:</string>
 </resources>

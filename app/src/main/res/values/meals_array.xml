@@ -4,6 +4,7 @@
         <item>Jajko</item>
         <item>Banan</item>
         <item>Jabłko</item>
+        <item>Dupa</item>
     </string-array>
 
 
@@ -12,13 +13,40 @@
              kcal;tłuszcz;węglowodany;białko-->
 
         <!-- Jajko -->
-        <item>155;11;1.1;13</item>
+        <item>
+            155;
+            11;
+            1.1;
+            13;
+            Bardzo dobre produkt
+        </item>
 
         <!-- Banan -->
-        <item>88;0.3;23;1.1</item>
+        <item>
+            88;
+            0.3;
+            23;
+            1.1;
+            Jest żółty
+        </item>
 
         <!-- Jabłko -->
-        <item>52;0.2;14;0.3</item>
+        <item>
+            52;
+            0.2;
+            14;
+            0.3;
+            Jest zielone
+        </item>
+
+        <!-- Dupa -->
+        <item>
+            0;
+            0;
+            0;
+            0;
+            dupa to dupa
+        </item>
     </string-array>
 
 </resources>

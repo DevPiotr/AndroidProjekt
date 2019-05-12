@@ -26,7 +26,8 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                         "Kcal INTEGER," +
                         "Fat INTEGER," +
                         "Carbohydrates INTEGER," +
-                        "Protein INTEGER)";
+                        "Protein INTEGER," +
+                        "Description TEXT)";
         db.execSQL(sqlString);
 
         ContentValues contentValues = new ContentValues();
@@ -43,14 +44,12 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
             contentValues.put("Fat",tmp[1]);
             contentValues.put("Carbohydrates",tmp[2]);
             contentValues.put("Protein",tmp[3]);
+            contentValues.put("Description",tmp[4]);
 
             db.insert("NUTRI",null,contentValues);
         }
     }
 
-    public int howManyMeals(){
-        return meals.length;
-    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

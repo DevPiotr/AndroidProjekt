@@ -7,11 +7,25 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mainActivityButtonText" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/mainActivityCreateButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mainActivityButtonText" />
+
+        <Button
+            android:id="@+id/mainActivityAddMealButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mainActivityCreateMealButton" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView2"

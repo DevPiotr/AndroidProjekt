@@ -1,52 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Meals">
-        <item>Jajko</item>
-        <item>Banan</item>
-        <item>Jabłko</item>
-        <item>Dupa</item>
+
+        <item>Kapusta na ostro</item>
+        <item>Grilowane Owoce</item>
+        <item>Azjatycka sałatka z kurczakiem</item>
+
     </string-array>
 
 
     <string-array name="NutriValues">
         <!-- Wartości odżywcze na 100g:
-             kcal;tłuszcz;węglowodany;białko-->
-
-        <!-- Jajko -->
+             kcal;
+             tłuszcz;
+             węglowodany;
+             białko;
+             opis;
+             składniki;
+             sposób przygotowania-->
+        <!-- Kapusta na ostro-->
         <item>
-            155;
-            11;
-            1.1;
-            13;
-            Bardzo dobre produkt
+            27;
+            0;
+            6;
+            1;
+
+            Sałatka rodem z Salwadoru świetnie pasuje do skrzydełek kurczaka na ostro, wołowych burgerów czy grillowanej wieprzowiny;
+
+            340g włoskiej kapusty\n
+            1/3 szklanki czerwonej cebuli\n
+            1/3 szklanki octu jabłkowego\n
+            1/2 łyżeczki oregano\n
+            1/2 łyżeczki cukru\n
+            1/4 łyżeczki płatków chilli\n
+            1/2 czerwonej papryki\n
+            1/2 marchewki;
+
+            W szatkownicy posiekaj kapustę, paprykę, marchewkę i cebule. Przełóż do miski. W innej wymieszaj ocet,chilli,cukier,oregano i 3 łyżki wody.
+            Wlej dressing do miski z warzywami, dobrze wymieszaj, dopraw solą i pieprzem. Przykryj i wstaw do lodówki na przynajminiej 2 godziny(a najlepiej na noc),
+            6 porcji.
+        </item>
+        <!-- Grilowane owoce-->
+        <item>
+            360;
+            19;
+            32;
+            16;
+
+            Z białkową wkładką w postaci swietnego cypryjsko-greckiego sera halloumi;
+
+            2 łyżki cukru\n
+            2 łyżki tequili\n
+            sok i starta skórka z limonki\n
+            1 śliwka, połówki\n
+            1 brzoskiwnia, połówki\n
+            1 łódka arbuza\n
+            4 krążki ananasa\n
+            4 truskawki\n
+            225g sera halloumi\n
+            1 szklanka rukoli\n
+            1/3 szklanki listków mięty\n
+            3/4 szklanki uprażonych, solonych pistacji;
+
+            1. W dużej misce wymieszaj cukier,tequilę,skrórkę i sok z limonki. \n\n
+            2. Rozgrzej średnio grilla i wysmaruj ruszt olejem. Skrop olejem owoce i połóż razem z serem na ruszcie. Grilluj 3-5 minut z każdej strony. Zdejmij i pokrój na kawałki \n\n
+            3. Wymieszaj w misce owoce,ser rukolę i miętę. Polej dressingiem,jeszcze raz i wymieszaj i posyp posiekanymi pistacjami, 4 porcje.
+        </item>
+        <!-- Azjatycka sałatka z kurczakiem -->
+        <item>
+            410;
+            20;
+            4;
+            46;
+
+            Świeża, chrupiąca, a bez dodaku makaronu możesz nią nadziać pitę lub zwinąć w tortilli. Uniwersalna;
+
+            1 łyżka oliwy extra virgin\n
+            1 łyżeczka octu ryżowego\n
+            1/4 łyżeczki oleju sezamowego\n
+            1 szklanka usmażonej piersi z kurczaka\n
+            1 szkalnka posiekanej kapusty\n
+            1/4 szklanki groszku cukrowego\n
+            1/4 szklanki startej marchewki\n
+            2 posiekane szalotki\n
+            ziarna czarnego sezamu i makaronu chow mein do przybrania;
+
+            W misce wymieszaj 3 pierwsze składniki i dopraw. Dorzuć poszarpane mięso, posiekaną kapustę, marchew, groszek i szczypior. Wymieszaj.
+            Na koniec dorzuć garść ugotowanego makaraonu(zimnego lub gorącego, jak wolisz) i posyp sezamem, 1 porcja.
         </item>
 
-        <!-- Banan -->
-        <item>
-            88;
-            0.3;
-            23;
-            1.1;
-            Jest żółty
-        </item>
 
-        <!-- Jabłko -->
-        <item>
-            52;
-            0.2;
-            14;
-            0.3;
-            Jest zielone
-        </item>
-
-        <!-- Dupa -->
-        <item>
-            0;
-            0;
-            0;
-            0;
-            dupa to dupa
-        </item>
     </string-array>
 
 </resources>

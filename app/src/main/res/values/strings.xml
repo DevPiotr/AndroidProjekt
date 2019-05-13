@@ -4,7 +4,7 @@
     <!-- DetailActivity -->
     <string name="mealDetailName">Nazwa posiłku</string>
     <string name="mealDetailContext">Opis posiłku</string>
-    <string name="mealDetailStaticText">Wartość odżywcza:</string>
+    <string name="mealDetailStaticText">Wartość odżywcza na 1 porcje:</string>
     <string name="mealDetailPlaceholder">0</string>
     <string name="mealDetailKcal">Kcal:</string>
     <string name="mealDetailFat">Tłuszcz:</string>
@@ -13,5 +13,13 @@
 
     <!-- Main Activity -->
     <string name="mainActivityButtonText">Stwórz diete!</string>
+    <string name="mainActivityCreateMealButton">Dodaj posiłek</string>
     <string name="mainActivityPlainText">Posiłki:</string>
+
+    <!-- Detail Activity-->
+    <string name="detailActivityIngredients">Składniki:</string>
+    <string name="detailActivityPreparation">Sposób przygotowania:</string>
+
+    <!-- Add New Meal Activity -->
+    <string name="addNewMealActivityAddButton">Dodaj!</string>
 </resources>

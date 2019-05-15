@@ -26,6 +26,7 @@
         android:textStyle="bold" />
 
     <ListView
+        android:id="@+id/newDietListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -139,7 +140,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/newDietAddButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/addNewDietActivityAddDietButton" />

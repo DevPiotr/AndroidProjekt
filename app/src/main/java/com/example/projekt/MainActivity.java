@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new NutriDatabaseHelper(this);
 
+
         simpleListView = findViewById(R.id.simpleListView);
 
         ArrayList<String> mealNames = db.getMealNames();
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             arrayList.add(hashMap);
         }
 
-        //Robimy adapter
         String[] from = {"name"};
         int[] to = {R.id.textView};
         simpleAdapter =
@@ -104,13 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
         switch(requestCode){
             case CODE_ADDMEAL: {
-                db.getWritableDatabase().insert("NUTRI",null,(ContentValues)data.getExtras().get("contentValues"));
+                if(resultCode == RESULT_OK) {
+                    db.getWritableDatabase().insert("NUTRI", null, (ContentValues) data.getExtras().get("contentValues"));
 
-                HashMap<String,String> hashMap = new HashMap<>();
-                hashMap.put("name",((ContentValues) data.getExtras().get("contentValues")).get("Name").toString());
-                arrayList.add(hashMap);
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("name", ((ContentValues) data.getExtras().get("contentValues")).get("Name").toString());
+                    arrayList.add(hashMap);
 
-                simpleAdapter.notifyDataSetChanged();
+                    simpleAdapter.notifyDataSetChanged();
+                }
+                break;
+            }
+            default: {
                 break;
             }
         }

@@ -27,7 +27,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sqlString=
                 "CREATE TABLE NUTRI(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "Name TEXT," +
+                        "Name TEXT UNIQUE," +
                         "Kcal INTEGER," +
                         "Fat INTEGER," +
                         "Carbohydrates INTEGER," +

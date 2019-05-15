@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class AddNewMealActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_meal);
-
+        final NutriDatabaseHelper db = new NutriDatabaseHelper(this);
         addMealAddButton = findViewById(R.id.addMealAddButton);
 
         newMealDetails.add((EditText)findViewById(R.id.addMealName));
@@ -37,23 +38,27 @@ public class AddNewMealActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent backIntent = new Intent();
-
+                ArrayList<String>  mealNames = db.getMealNames();
                 ContentValues contentValues =  new ContentValues();
 
                 contentValues.clear();
+                if(!mealNames.contains(newMealDetails.get(0).getText().toString())) {
+                    contentValues.put("Name", newMealDetails.get(0).getText().toString());
+                    contentValues.put("Kcal", newMealDetails.get(1).getText().toString());
+                    contentValues.put("Fat", newMealDetails.get(2).getText().toString());
+                    contentValues.put("Carbohydrates", newMealDetails.get(3).getText().toString());
+                    contentValues.put("Protein", newMealDetails.get(4).getText().toString());
+                    contentValues.put("Description", newMealDetails.get(5).getText().toString());
+                    contentValues.put("Ingredients", newMealDetails.get(6).getText().toString());
+                    contentValues.put("Preparation", newMealDetails.get(7).getText().toString());
 
-                contentValues.put("Name",newMealDetails.get(0).getText().toString());
-                contentValues.put("Kcal",newMealDetails.get(1).getText().toString());
-                contentValues.put("Fat",newMealDetails.get(2).getText().toString());
-                contentValues.put("Carbohydrates",newMealDetails.get(3).getText().toString());
-                contentValues.put("Protein",newMealDetails.get(4).getText().toString());
-                contentValues.put("Description",newMealDetails.get(5).getText().toString());
-                contentValues.put("Ingredients",newMealDetails.get(6).getText().toString());
-                contentValues.put("Preparation",newMealDetails.get(7).getText().toString());
-
-                backIntent.putExtra("contentValues",contentValues);
-                setResult(RESULT_OK,backIntent);
-                finish();
+                    backIntent.putExtra("contentValues", contentValues);
+                    setResult(RESULT_OK, backIntent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(AddNewMealActivity.this,"Już istnieje taka nazwa posiłku",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

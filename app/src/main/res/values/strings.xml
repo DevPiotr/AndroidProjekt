@@ -22,4 +22,9 @@
 
     <!-- Add New Meal Activity -->
     <string name="addNewMealActivityAddButton">Dodaj!</string>
+
+    <!-- Add New Diet Activity -->
+    <string name="addNewDietActivityNewDietPlaceholder">Nazwa diety</string>
+    <string name="addNewDietActivityMealsText">Posiłki do wyboru:</string>
+    <string name="addNewDietActivityAddDietButton">Stwórz diete!</string>
 </resources>

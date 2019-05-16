@@ -18,7 +18,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int CODE_ADDMEAL = 10;
+    public static final int CODE_ADDMEAL = 01;
+    public static final int CODE_ADDDIET = 10;
     ListView simpleListView;
     SimpleAdapter simpleAdapter;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button mainActivityAddMealButton = findViewById(R.id.mainActivityAddMealButton);
+        Button mainActivityNewDietButton = findViewById(R.id.mainActivityNewDietButton);
 
         db = new NutriDatabaseHelper(this);
 
@@ -96,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //NewDietButton Configuration
+        mainActivityNewDietButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AddNewDietActivity.class);
+                startActivityForResult(intent,CODE_ADDDIET);
+            }
+        });
+
     }
 
     @Override
@@ -114,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
                     simpleAdapter.notifyDataSetChanged();
                 }
                 break;
+            }
+            case CODE_ADDDIET:
+            {
+                //TODO::Dodawanie do bazy diet
             }
             default: {
                 break;

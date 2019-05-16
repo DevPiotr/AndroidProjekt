@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NutriDatabaseHelper extends SQLiteOpenHelper {
 
@@ -72,6 +73,28 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     null,null,null);
             cursor.moveToFirst();
 
+            do{
+                ret.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+        return ret;
+    }
+
+
+    public ArrayList<String> getNutriValuesByName(String mealName) {
+        ArrayList<String> ret = new ArrayList<>();
+
+        try{
+            Cursor cursor = getReadableDatabase().query("NUTRI",
+                    new String[]{"Kcal","Fat","Carbohydrates","Protein"},
+                    "Name = ?",
+                    new String[]{mealName},
+                    null,null,null);
+            cursor.moveToFirst();
             do{
                 ret.add(cursor.getString(0));
             }while(cursor.moveToNext());

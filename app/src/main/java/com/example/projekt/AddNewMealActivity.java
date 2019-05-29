@@ -40,9 +40,17 @@ public class AddNewMealActivity extends AppCompatActivity {
                 Intent backIntent = new Intent();
                 ArrayList<String>  mealNames = db.getMealNames();
                 ContentValues contentValues =  new ContentValues();
+                Boolean mealExist = false;
 
+                for(String meal: mealNames){
+                    System.out.println(meal.toLowerCase() + " == " + newMealDetails.get(0).getText().toString());
+                    if(meal.toLowerCase().equals(newMealDetails.get(0).getText().toString().toLowerCase())){
+                        mealExist = true;
+                        break;
+                    }
+                }
                 contentValues.clear();
-                if(!mealNames.contains(newMealDetails.get(0).getText().toString())) {
+                if(!mealExist) {
                     contentValues.put("Name", newMealDetails.get(0).getText().toString());
                     contentValues.put("Kcal", newMealDetails.get(1).getText().toString());
                     contentValues.put("Fat", newMealDetails.get(2).getText().toString());

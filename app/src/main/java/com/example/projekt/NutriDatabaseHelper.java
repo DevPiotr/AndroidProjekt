@@ -71,13 +71,13 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     null,
                     null,
                     null,null,null);
-            cursor.moveToFirst();
+            if(cursor.moveToFirst()) {
+                do {
+                    ret.add(cursor.getString(0));
+                } while (cursor.moveToNext());
 
-            do{
-                ret.add(cursor.getString(0));
-            }while(cursor.moveToNext());
-
-            cursor.close();
+                cursor.close();
+            }
         }catch(SQLiteException exp){
             System.out.println(exp.getMessage());
         }
@@ -94,12 +94,13 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     "Name = ?",
                     new String[]{mealName},
                     null,null,null);
-            cursor.moveToFirst();
-            do{
-                ret.add(cursor.getString(0));
-            }while(cursor.moveToNext());
+            if(cursor.moveToFirst()) {
+                do {
+                    ret.add(cursor.getString(0));
+                } while (cursor.moveToNext());
 
-            cursor.close();
+                cursor.close();
+            }
         }catch(SQLiteException exp){
             System.out.println(exp.getMessage());
         }

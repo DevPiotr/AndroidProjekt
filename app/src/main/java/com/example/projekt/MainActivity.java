@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode){
             case CODE_ADDMEAL: {
                 if(resultCode == RESULT_OK) {
-                    db.getWritableDatabase().insert("NUTRI", null, (ContentValues) data.getExtras().get("contentValues"));
+                    db.getWritableDatabase().insertWithOnConflict("NUTRI", null, (ContentValues) data.getExtras().get("contentValues"), SQLiteDatabase.CONFLICT_IGNORE);
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("name", ((ContentValues) data.getExtras().get("contentValues")).get("Name").toString());

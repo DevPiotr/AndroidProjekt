@@ -43,7 +43,6 @@ public class AddNewMealActivity extends AppCompatActivity {
                 Boolean mealExist = false;
 
                 for(String meal: mealNames){
-                    System.out.println(meal.toLowerCase() + " == " + newMealDetails.get(0).getText().toString());
                     if(meal.toLowerCase().equals(newMealDetails.get(0).getText().toString().toLowerCase())){
                         mealExist = true;
                         break;

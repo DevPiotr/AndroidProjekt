@@ -14,6 +14,7 @@
     <!-- Main Activity -->
     <string name="mainActivityButtonText">Stwórz diete!</string>
     <string name="mainActivityCreateMealButton">Dodaj posiłek</string>
+    <string name="mainActivityDiets">Diety</string>
     <string name="mainActivityPlainText">Posiłki:</string>
 
     <!-- Detail Activity-->

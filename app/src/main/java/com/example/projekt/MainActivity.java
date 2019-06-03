@@ -24,16 +24,21 @@ public class MainActivity extends AppCompatActivity {
     ListView simpleListView;
     SimpleAdapter simpleAdapter;
 
+    Button mainActivityDiets;
+
     public NutriDatabaseHelper db;
 
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        deleteDatabase("NutriValue");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button mainActivityAddMealButton = findViewById(R.id.mainActivityAddMealButton);
         Button mainActivityNewDietButton = findViewById(R.id.mainActivityNewDietButton);
+        mainActivityDiets = findViewById(R.id.mainActivityDiets);
+        mainActivityDiets.setEnabled(false);
 
         db = new NutriDatabaseHelper(this);
 
@@ -117,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode){
             case CODE_ADDMEAL: {
                 if(resultCode == RESULT_OK) {
-                    db.getWritableDatabase().insertWithOnConflict("NUTRI", null, (ContentValues) data.getExtras().get("contentValues"), SQLiteDatabase.CONFLICT_IGNORE);
+                    db.getWritableDatabase().insert("NUTRI", null, (ContentValues) data.getExtras().get("contentValues"));
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("name", ((ContentValues) data.getExtras().get("contentValues")).get("Name").toString());
@@ -129,7 +134,14 @@ public class MainActivity extends AppCompatActivity {
             }
             case CODE_ADDDIET:
             {
-                //TODO::Dodawanie do bazy diet
+                if(resultCode == RESULT_OK){
+                    db.getWritableDatabase().insert("DIET",null,(ContentValues) data.getExtras().get("contentValues"));
+
+                    if(!mainActivityDiets.isEnabled()){
+                        mainActivityDiets.setEnabled(true);
+                    }
+                }
+                break;
             }
             default: {
                 break;

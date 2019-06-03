@@ -1,5 +1,8 @@
 package com.example.projekt;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +12,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AddNewDietActivity extends AppCompatActivity {
 
-    EditText newDietNewDiet;
+    EditText newDietName;
 
     ArrayList<TextView> nutriValues = new ArrayList<>();
     ArrayList<String> mealNames;
@@ -35,7 +39,10 @@ public class AddNewDietActivity extends AppCompatActivity {
 
         final NutriDatabaseHelper db = new NutriDatabaseHelper(this);
 
-        //HashMap NutriValues Init
+        newDietName = findViewById(R.id.newDietName);
+        newDietAddButton = findViewById(R.id.newDietAddButton);
+
+        //ArrayList NutriValues Init
         nutriValues.add((TextView)findViewById(R.id.newDietKcal));
         nutriValues.add((TextView)findViewById(R.id.newDietFat));
         nutriValues.add((TextView)findViewById(R.id.newDietCarbohydrates));
@@ -61,24 +68,66 @@ public class AddNewDietActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /*
-                String mealName = mealNames.get((int)id);
-                if(selectedMeals.contains(mealName)){
+                String clickedMealName = mealNames.get((int)id);
+                ArrayList<String> tmpValues = db.getNutriValuesByName(clickedMealName);
 
-                    ArrayList<String> tmpValues = db.getNutriValuesByName(mealName);
+                if(!selectedMeals.contains(clickedMealName)){
 
                     for (int i = 0; i < nutriValues.size(); i++) {
-                        nutriValues.get(i).setText(tmpValues.get(i));
+                        int tmp = Integer.parseInt(nutriValues.get(i).getText().toString());
+                        tmp += Integer.parseInt(tmpValues.get(i));
+                        nutriValues.get(i).setText(String.valueOf(tmp));
                     }
+                    selectedMeals.add(clickedMealName);
+                    view.setBackgroundColor(Color.parseColor("#E57373"));
                 }
-                */
+                else{
+                    for (int i = 0; i < nutriValues.size(); i++) {
+                        int tmp = Integer.parseInt(nutriValues.get(i).getText().toString());
+                        tmp -= Integer.parseInt(tmpValues.get(i));
+                        nutriValues.get(i).setText(String.valueOf(tmp));
+                    }
+                    selectedMeals.remove(clickedMealName);
+                    view.setBackgroundColor(Color.WHITE);
+                }
+
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        newDietAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
+            public void onClick(View v) {
+                Intent backIntent = new Intent();
+                ArrayList<String>  dietNames = db.getDietNames();
+                ContentValues contentValues =  new ContentValues();
+                Boolean dietExist = false;
+                String tmpMealNames = "";
+
+                for(String diet: dietNames){
+                    if(diet.toLowerCase().equals(newDietName.getText().toString().toLowerCase())){
+                        dietExist = true;
+                        break;
+                    }
+                }
+                contentValues.clear();
+                if(!dietExist) {
+                    contentValues.put("Name", newDietName.getText().toString());
+
+                    for(String meals: selectedMeals){
+                        tmpMealNames += meals +";";
+                    }
+
+                    tmpMealNames = tmpMealNames.substring(0,tmpMealNames.length()-1);
+
+                    System.out.println(tmpMealNames);
+
+                    backIntent.putExtra("contentValues", contentValues);
+                    setResult(RESULT_OK, backIntent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(AddNewDietActivity.this,"Już istnieje taka nazwa diety",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

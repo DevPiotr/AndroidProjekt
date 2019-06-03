@@ -38,6 +38,10 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                         "Preparation LONGTEXT)";
         db.execSQL(sqlString);
 
+        sqlString =
+                "CREATE TABLE NUTRIDIET(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "Name TEXT UNIQUE," +
+                        "Meals TEXT)";
         ContentValues contentValues = new ContentValues();
 
         String[] tmp;
@@ -95,9 +99,9 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     new String[]{mealName},
                     null,null,null);
             cursor.moveToFirst();
-            do{
-                ret.add(cursor.getString(0));
-            }while(cursor.moveToNext());
+            for(int i = 0;i<4;i++){
+                ret.add(cursor.getString(i));
+            }
 
             cursor.close();
         }catch(SQLiteException exp){

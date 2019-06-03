@@ -1,5 +1,6 @@
 package com.example.projekt;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class AddNewDietActivity extends AppCompatActivity {
 
         final NutriDatabaseHelper db = new NutriDatabaseHelper(this);
 
-        //HashMap NutriValues Init
+        //ArrayList NutriValues Init
         nutriValues.add((TextView)findViewById(R.id.newDietKcal));
         nutriValues.add((TextView)findViewById(R.id.newDietFat));
         nutriValues.add((TextView)findViewById(R.id.newDietCarbohydrates));
@@ -61,17 +62,30 @@ public class AddNewDietActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /*
-                String mealName = mealNames.get((int)id);
-                if(selectedMeals.contains(mealName)){
+                String clickedMealName = mealNames.get((int)id);
+                ArrayList<String> tmpValues = db.getNutriValuesByName(clickedMealName);
 
-                    ArrayList<String> tmpValues = db.getNutriValuesByName(mealName);
+                if(!selectedMeals.contains(clickedMealName)){
 
                     for (int i = 0; i < nutriValues.size(); i++) {
-                        nutriValues.get(i).setText(tmpValues.get(i));
+                        System.out.println(nutriValues.get(i).getText().toString());
+                        int tmp = Integer.parseInt(nutriValues.get(i).getText().toString());
+                        tmp += Integer.parseInt(tmpValues.get(i));
+                        nutriValues.get(i).setText(String.valueOf(tmp));
                     }
+                    selectedMeals.add(clickedMealName);
+                    view.setBackgroundColor(Color.parseColor("#E57373"));
                 }
-                */
+                else{
+                    for (int i = 0; i < nutriValues.size(); i++) {
+                        int tmp = Integer.parseInt(nutriValues.get(i).getText().toString());
+                        tmp -= Integer.parseInt(tmpValues.get(i));
+                        nutriValues.get(i).setText(String.valueOf(tmp));
+                    }
+                    selectedMeals.remove(clickedMealName);
+                    view.setBackgroundColor(Color.WHITE);
+                }
+
             }
         });
 

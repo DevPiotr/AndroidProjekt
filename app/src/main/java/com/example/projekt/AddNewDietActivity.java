@@ -100,7 +100,7 @@ public class AddNewDietActivity extends AppCompatActivity {
                 Intent backIntent = new Intent();
                 ArrayList<String>  dietNames = db.getDietNames();
                 ContentValues contentValues =  new ContentValues();
-                Boolean dietExist = false;
+                boolean dietExist = false;
                 String tmpMealNames = "";
 
                 for(String diet: dietNames){
@@ -121,6 +121,7 @@ public class AddNewDietActivity extends AppCompatActivity {
 
                     System.out.println(tmpMealNames);
 
+                    contentValues.put("Meals",tmpMealNames);
                     backIntent.putExtra("contentValues", contentValues);
                     setResult(RESULT_OK, backIntent);
                     finish();

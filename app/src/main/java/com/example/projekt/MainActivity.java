@@ -2,9 +2,11 @@ package com.example.projekt;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +21,14 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int CODE_ADDMEAL = 01;
+    public static final int CODE_ADDMEAL = 1;
     public static final int CODE_ADDDIET = 10;
     ListView simpleListView;
     SimpleAdapter simpleAdapter;
 
     Button mainActivityDiets;
+
+    public static Context mContext;
 
     public NutriDatabaseHelper db;
 
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         deleteDatabase("NutriValue");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mContext = this;
 
         Button mainActivityAddMealButton = findViewById(R.id.mainActivityAddMealButton);
         Button mainActivityNewDietButton = findViewById(R.id.mainActivityNewDietButton);
@@ -113,6 +119,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Obsługa przycisku mainActivityDiets
+        mainActivityDiets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,DietActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -122,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode){
             case CODE_ADDMEAL: {
                 if(resultCode == RESULT_OK) {
-                    db.getWritableDatabase().insert("NUTRI", null, (ContentValues) data.getExtras().get("contentValues"));
+                    db.getWritableDatabase().insert("NUTRI", null,  (ContentValues) data.getExtras().get("contentValues"));
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("name", ((ContentValues) data.getExtras().get("contentValues")).get("Name").toString());

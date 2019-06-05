@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNewDietActivity"></activity>
+        <activity android:name=".DietDetailActivity"></activity>
+        <activity android:name=".DietActivity" />
+        <activity android:name=".AddNewDietActivity" />
         <activity android:name=".AddNewMealActivity" />
         <activity android:name=".ListViewItemsActivity" />
         <activity android:name=".DetailActivity" />

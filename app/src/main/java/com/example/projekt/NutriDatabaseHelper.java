@@ -46,7 +46,6 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         meals = context.getResources().getStringArray(R.array.Meals);
         nutriValues = context.getResources().getStringArray(R.array.NutriValues);
 
-        Log.d("table", CREATE_TABLE_DIET);
     }
 
     @Override
@@ -73,6 +72,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
 
             db.insert("NUTRI",null,contentValues);
         }
+
     }
 
     @Override
@@ -86,7 +86,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<String> getMealNames(){
         ArrayList<String> ret = new ArrayList<>();
         try{
-            Cursor cursor = getReadableDatabase().query("NUTRI",
+            Cursor cursor = getReadableDatabase().query(TABLE_NUTRI,
                     new String[]{"Name"},
                     null,
                     null,
@@ -106,7 +106,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<String> getDietNames(){
         ArrayList<String> ret = new ArrayList<>();
         try{
-            Cursor cursor = getReadableDatabase().query("DIET",
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
                     new String[]{"Name"},
                     null,
                     null,
@@ -128,7 +128,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<String> ret = new ArrayList<>();
 
         try{
-            Cursor cursor = getReadableDatabase().query("NUTRI",
+            Cursor cursor = getReadableDatabase().query(TABLE_NUTRI,
                     new String[]{"Kcal","Fat","Carbohydrates","Protein"},
                     "Name = ?",
                     new String[]{mealName},
@@ -147,4 +147,45 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public ArrayList<String> getDietMeals(String dietName) {
+        ArrayList<String> ret = new ArrayList<>();
+
+        String dietMealsName = "";
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"Meals"},
+                    "Name = ?",
+                    new String[]{dietName},
+                    null,null,null);
+            if(cursor.moveToFirst()) {
+                do {
+                    dietMealsName = cursor.getString(0);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+
+            String[] argsSelection = dietMealsName.split(";");
+            String whereSelection = "";
+            for(int i=0;i<argsSelection.length;i++){
+                whereSelection += "Name = ? OR ";
+            }
+            whereSelection = whereSelection.substring(0,whereSelection.length()-4);
+
+            cursor = getReadableDatabase().query(TABLE_NUTRI,
+                    new String[]{"Name"},
+                    whereSelection,
+                    argsSelection,
+                    null,null,null);
+            if(cursor.moveToFirst()) {
+                do {
+                    ret.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+
+        return ret;
+    }
 }

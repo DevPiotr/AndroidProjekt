@@ -31,4 +31,9 @@
 
     <!-- Diet Activity -->
     <string name="DietActivityText">Diety</string>
+
+    <!-- Login Activity -->
+    <string name="login">Login</string>
+    <string name="password">Hasło</string>
+    <string name="loginButton">Zaloguj</string>
 </resources>

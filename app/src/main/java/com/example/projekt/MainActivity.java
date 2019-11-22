@@ -35,19 +35,18 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        deleteDatabase("NutriValue");
+        //deleteDatabase("NutriValue");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        setContentView(R.layout.activity_add_new_diet );
 
         mContext = this;
 
         Button mainActivityAddMealButton = findViewById(R.id.mainActivityAddMealButton);
         Button mainActivityNewDietButton = findViewById(R.id.mainActivityNewDietButton);
         mainActivityDiets = findViewById(R.id.mainActivityDiets);
-        mainActivityDiets.setEnabled(false);
 
         db = new NutriDatabaseHelper(this);
-
 
         simpleListView = findViewById(R.id.simpleListView);
 
@@ -151,10 +150,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(resultCode == RESULT_OK){
                     db.getWritableDatabase().insert("DIET",null,(ContentValues) data.getExtras().get("contentValues"));
-
-                    if(!mainActivityDiets.isEnabled()){
-                        mainActivityDiets.setEnabled(true);
-                    }
                 }
                 break;
             }

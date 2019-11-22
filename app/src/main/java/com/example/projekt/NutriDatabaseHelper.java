@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.Editable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NUTRI = "NUTRI";
     private static final String TABLE_DIET = "DIET";
+    private static final String TABLE_USER = "USERS";
 
     private static final String CREATE_TABLE_NUTRI=
             "CREATE TABLE  IF NOT EXISTS "+ TABLE_NUTRI +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -33,6 +35,12 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE  IF NOT EXISTS "+ TABLE_DIET +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Name TEXT UNIQUE," +
                     "Meals LONGTEXT)";
+
+    private static final String CREATE_TABLE_USER =
+            "CREATE TABLE IF NOT EXISTS "+ TABLE_USER +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Login TEXT UNIQUE," +
+                    "Password TEXT)";
+
 
 
     public String[] meals;
@@ -53,6 +61,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_NUTRI);
         db.execSQL(CREATE_TABLE_DIET);
+        db.execSQL(CREATE_TABLE_USER);
 
 
         ContentValues contentValues = new ContentValues();
@@ -79,7 +88,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_NUTRI + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_DIET + "'");
-
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_USER + "'");
         onCreate(db);
     }
 
@@ -117,6 +126,24 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                 } while (cursor.moveToNext());
             }
 
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+        return ret;
+    }
+    public boolean dietExist(){
+        boolean ret = false;
+
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"Name"},
+                    null,
+                    null,
+                    null,null,null);
+            if(cursor.moveToFirst()) {
+                ret = true;
+            }
             cursor.close();
         }catch(SQLiteException exp){
             System.out.println(exp.getMessage());
@@ -187,5 +214,20 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return ret;
+    }
+
+    public boolean userExist(String login) {
+        Cursor cursor = getReadableDatabase().query(TABLE_USER,
+                new String[]{login},
+                "Login = ?", null,null,null,null);
+        return cursor.getCount() >= 1;
+    }
+
+    public void createNewUser(String login,String password) {
+        ContentValues contentValue = new ContentValues() ;
+
+        contentValue.put("Login",login);
+        contentValue.put("Password",password);
+        getWritableDatabase().insert(TABLE_USER,null,contentValue);
     }
 }

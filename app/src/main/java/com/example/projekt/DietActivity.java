@@ -64,7 +64,7 @@ public class DietActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db.getWritableDatabase().delete("NUTRI",
+                                db.getWritableDatabase().delete("DIET",
                                         "name = ?",
                                         new String[]{arrayList.get(dietId).get("name")});
                                 arrayList.remove(dietId);

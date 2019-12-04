@@ -10,10 +10,12 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_diet );
 
         mContext = this;
+
+        final Button mainActivityMenuButton = findViewById(R.id.menuButton);
 
         Button mainActivityAddMealButton = findViewById(R.id.mainActivityAddMealButton);
         Button mainActivityNewDietButton = findViewById(R.id.mainActivityNewDietButton);
@@ -126,6 +130,29 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mainActivityMenuButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(MainActivity.this, mainActivityMenuButton);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        //TODO zarzadzanie wcisnieciami
+
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+        });//closing the setOnClickListener method
 
     }
 

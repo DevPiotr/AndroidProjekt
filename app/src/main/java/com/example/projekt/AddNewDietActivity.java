@@ -28,6 +28,7 @@ public class AddNewDietActivity extends AppCompatActivity {
     ListView listView;
     SimpleAdapter simpleAdapter;
 
+
     Button newDietAddButton;
 
     @Override

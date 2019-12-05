@@ -1,10 +1,15 @@
 package com.example.projekt;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,6 +20,8 @@ import java.util.HashMap;
 
 public class DietActivity extends AppCompatActivity {
 
+    public static final int CODE_ADDDIET = 10;
+
     ListView dietListView;
     SimpleAdapter simpleAdapter;
 
@@ -22,14 +29,19 @@ public class DietActivity extends AppCompatActivity {
 
 
     NutriDatabaseHelper db = new NutriDatabaseHelper(MainActivity.mContext);
+
+    int loggedUserId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet);
 
+        loggedUserId = getIntent().getIntExtra("userId",0);
+
         dietListView = findViewById(R.id.dietListView);
 
-        ArrayList<String> dietNames = db.getDietNames();
+        ArrayList<String> dietNames = db.getUserDietNames(loggedUserId);
 
         for (int i=0; i<dietNames.size();i++){
             HashMap<String,String> hashMap = new HashMap<>();
@@ -79,4 +91,46 @@ public class DietActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+
+        menuInflater.inflate(R.menu.diet_popup_menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.addDietMenuButton:
+                Intent intent = new Intent(DietActivity.this,AddNewDietActivity.class);
+                startActivityForResult(intent,CODE_ADDDIET);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case CODE_ADDDIET: {
+                if (resultCode == RESULT_OK) {
+                    ContentValues contentValues = (ContentValues) data.getExtras().get("contentValues");
+
+                    contentValues.put("userId",loggedUserId);
+
+                    db.getWritableDatabase().insert("DIET", null, contentValues);
+                    recreate();
+                }
+                break;
+            }
+        }
+    }
+
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projekt</string>
+    <string name="app_name">Dietomator</string>
 
     <!-- DetailActivity -->
     <string name="mealDetailName">Nazwa posiłku</string>
@@ -15,7 +15,8 @@
     <string name="mainActivityButtonText">Stwórz diete!</string>
     <string name="mainActivityCreateMealButton">Dodaj posiłek</string>
     <string name="mainActivityDiets">Diety</string>
-    <string name="mainActivityPlainText">Posiłki:</string>
+    <string name="mainActivityPlainText">Przykładowe posiłki:</string>
+    <string name="helloText">Witaj!</string>
 
     <!-- Detail Activity-->
     <string name="detailActivityIngredients">Składniki:</string>
@@ -36,4 +37,6 @@
     <string name="login">Login</string>
     <string name="password">Hasło</string>
     <string name="loginButton">Zaloguj</string>
+    <string name="info">*Jeśli nie posiadasz konta pierwsze logowanie Jest rejestracją :)</string>
+
 </resources>

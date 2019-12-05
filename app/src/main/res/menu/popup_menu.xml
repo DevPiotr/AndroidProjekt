@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/one"
-        android:title="One" />
+        android:id="@+id/logInMenuButton"
+        android:title="Zaloguj się" />
     <item
-        android:id="@+id/two"
-        android:title="Two"/>
+        android:id="@+id/showDietsMenuButton"
+        android:title="Pokaż moje diety"
+        android:visible="false" />
     <item
-        android:id="@+id/three"
-        android:title="Three"/>
+        android:id="@+id/addMealMenuButton"
+        android:icon="@drawable/ic_add_box_black_24dp"
+        android:title="Dodaj posiłek"
+        android:visible="false" />
+    <item
+        android:id="@+id/logOutMenuButton"
+        android:title="Wyloguj się"
+        android:visible="false" />
 </menu>

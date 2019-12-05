@@ -5,53 +5,58 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    //region  INTENTCODE
     public static final int CODE_ADDMEAL = 1;
-    public static final int CODE_ADDDIET = 10;
+
+    public static final int CODE_LOGIN = 11;
+    //endregion
+
+    //region global variable
     ListView simpleListView;
     SimpleAdapter simpleAdapter;
-
-    Button mainActivityDiets;
 
     public static Context mContext;
 
     public NutriDatabaseHelper db;
 
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
+
+    private int loggedUserId = 0;
+
+    //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //deleteDatabase("NutriValue");
+
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_add_new_diet );
+        //deleteDatabase("NutriValue");
+
+        setContentView(R.layout.activity_main);
 
         mContext = this;
 
-        final Button mainActivityMenuButton = findViewById(R.id.menuButton);
-
-        Button mainActivityAddMealButton = findViewById(R.id.mainActivityAddMealButton);
-        Button mainActivityNewDietButton = findViewById(R.id.mainActivityNewDietButton);
-        mainActivityDiets = findViewById(R.id.mainActivityDiets);
-
         db = new NutriDatabaseHelper(this);
 
+        //region listView populate
         simpleListView = findViewById(R.id.simpleListView);
 
         ArrayList<String> mealNames = db.getMealNames();
@@ -63,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         String[] from = {"name"};
         int[] to = {R.id.textView};
-        simpleAdapter =
-                new SimpleAdapter(this,arrayList,R.layout.list_view_items,from,to);
+        simpleAdapter = new SimpleAdapter(this,arrayList,R.layout.list_view_items,from,to);
+
         simpleListView.setAdapter(simpleAdapter);
 
         simpleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,58 +107,60 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        //endregion
+    }
 
-        //Obsługa przycisku mainActivityAddMeal
-        mainActivityAddMealButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,AddNewMealActivity.class);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.popup_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        invalidateOptionsMenu();
+        if(userLogged()){
+            menu.findItem(R.id.logInMenuButton).setVisible(false);
+            menu.findItem(R.id.showDietsMenuButton).setVisible(true);
+            menu.findItem(R.id.addMealMenuButton).setVisible(true);
+            menu.findItem(R.id.logOutMenuButton).setVisible(true);
+        }else{
+            menu.findItem(R.id.logInMenuButton).setVisible(true);
+            menu.findItem(R.id.showDietsMenuButton).setVisible(false);
+            menu.findItem(R.id.addMealMenuButton).setVisible(false);
+            menu.findItem(R.id.logOutMenuButton).setVisible(false);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
+        switch(item.getItemId()){
+            case R.id.logInMenuButton:
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent,CODE_LOGIN);
+                return true;
+            case R.id.addMealMenuButton:
+                intent = new Intent(MainActivity.this,AddNewMealActivity.class);
                 startActivityForResult(intent,CODE_ADDMEAL);
-
-            }
-        });
-
-        //NewDietButton Configuration
-        mainActivityNewDietButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,AddNewDietActivity.class);
-                startActivityForResult(intent,CODE_ADDDIET);
-            }
-        });
-
-        //Obsługa przycisku mainActivityDiets
-        mainActivityDiets.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,DietActivity.class);
+                return true;
+            case R.id.showDietsMenuButton:
+                intent = new Intent(MainActivity.this,DietActivity.class);
+                intent.putExtra("userId",loggedUserId);
                 startActivity(intent);
-            }
-        });
+                return true;
+            case R.id.logOutMenuButton:
+                loggedUserId = 0;
+                recreate();
+                return true;
+        }
 
-        mainActivityMenuButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, mainActivityMenuButton);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        //TODO zarzadzanie wcisnieciami
-
-                        return true;
-                    }
-                });
-
-                popup.show();//showing popup menu
-            }
-        });//closing the setOnClickListener method
-
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -164,19 +171,17 @@ public class MainActivity extends AppCompatActivity {
             case CODE_ADDMEAL: {
                 if(resultCode == RESULT_OK) {
                     db.getWritableDatabase().insert("NUTRI", null,  (ContentValues) data.getExtras().get("contentValues"));
-
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("name", ((ContentValues) data.getExtras().get("contentValues")).get("Name").toString());
                     arrayList.add(hashMap);
-
                     simpleAdapter.notifyDataSetChanged();
                 }
                 break;
             }
-            case CODE_ADDDIET:
-            {
-                if(resultCode == RESULT_OK){
-                    db.getWritableDatabase().insert("DIET",null,(ContentValues) data.getExtras().get("contentValues"));
+            case CODE_LOGIN: {
+                if(resultCode == RESULT_OK) {
+                    loggedUserId = (int)data.getExtras().get("userId");
+                    ((TextView)findViewById(R.id.helloText)).setText("Witaj " + db.getUserNameById(loggedUserId) + " !");
                 }
                 break;
             }
@@ -184,6 +189,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    private boolean userLogged(){
+        return loggedUserId != 0;
     }
 
 }

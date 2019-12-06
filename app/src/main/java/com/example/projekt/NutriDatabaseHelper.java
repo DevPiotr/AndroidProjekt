@@ -28,7 +28,8 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     "Protein INTEGER," +
                     "Description LONGTEXT," +
                     "Ingredients LONGTEXT," +
-                    "Preparation LONGTEXT)";
+                    "Preparation LONGTEXT," +
+                    "ImagePath TEXT)";
 
 
     private static final String CREATE_TABLE_DIET =
@@ -150,25 +151,6 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                 } while (cursor.moveToNext());
             }
 
-            cursor.close();
-        }catch(SQLiteException exp){
-            System.out.println(exp.getMessage());
-        }
-        return ret;
-    }
-
-    public boolean dietExist(){
-        boolean ret = false;
-
-        try{
-            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
-                    new String[]{"Name"},
-                    null,
-                    null,
-                    null,null,null);
-            if(cursor.moveToFirst()) {
-                ret = true;
-            }
             cursor.close();
         }catch(SQLiteException exp){
             System.out.println(exp.getMessage());

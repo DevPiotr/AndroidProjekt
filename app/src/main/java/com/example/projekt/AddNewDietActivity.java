@@ -111,7 +111,10 @@ public class AddNewDietActivity extends AppCompatActivity {
                     }
                 }
                 contentValues.clear();
-                if(!dietExist) {
+                if(newDietName.getText().toString().equals("")){
+                    Toast.makeText(AddNewDietActivity.this,"Podaj nazwę diety",Toast.LENGTH_SHORT).show();
+                }
+                else if(!dietExist) {
                     contentValues.put("Name", newDietName.getText().toString());
 
                     for(String meals: selectedMeals){

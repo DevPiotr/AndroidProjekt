@@ -29,7 +29,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     "Description LONGTEXT," +
                     "Ingredients LONGTEXT," +
                     "Preparation LONGTEXT," +
-                    "ImagePath TEXT)";
+                    "ImagePath TEXT DEFAULT '')";
 
 
     private static final String CREATE_TABLE_DIET =
@@ -48,7 +48,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     public String[] meals;
     private String[] nutriValues;
     private static final String DBNAME="NutriValue";
-    private static final int DBVER = 1;
+    private static final int DBVER = 2;
 
     public NutriDatabaseHelper(Context context) {
         super(context,DBNAME,null,DBVER);

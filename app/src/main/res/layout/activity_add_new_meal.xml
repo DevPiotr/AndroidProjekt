@@ -247,7 +247,7 @@
 
 
             <LinearLayout
-                android:id="@+id/AddImageButtonsLayout"
+                android:id="@+id/addImageButtonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -271,7 +271,9 @@
             <ImageView
                 android:id="@+id/mealImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="150dp"
+                android:contentDescription="MealImage"
+                android:visibility="gone" />
 
 
             <Button

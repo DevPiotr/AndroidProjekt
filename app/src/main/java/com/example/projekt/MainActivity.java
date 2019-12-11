@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        //deleteDatabase("NutriValue");
+        deleteDatabase("NutriValue");
 
         setContentView(R.layout.activity_main);
 
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                //TODO Usuwanie zdjecia
                                 db.getWritableDatabase().delete("NUTRI",
                                                             "name = ?",
                                                                     new String[]{arrayList.get(mealId).get("name")});

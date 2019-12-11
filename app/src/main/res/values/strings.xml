@@ -28,8 +28,8 @@
     <!-- Add New Diet Activity -->
     <string name="addNewDietActivityNewDietPlaceholder">Nazwa diety</string>
     <string name="addNewDietActivityMealsText">Posiłki do wyboru:</string>
-    <string name="addNewDietActivityAddDietButton">Stwórz diete!</string>
-
+    <string name="addNewDietActivityAddDietButton">Stwórz dietę!</string>
+    e
     <!-- Diet Activity -->
     <string name="DietActivityText">Diety</string>
 

@@ -2,13 +2,18 @@ package com.example.projekt;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -30,21 +35,35 @@ public class DetailActivity extends AppCompatActivity {
         mealDetails.add((TextView)findViewById(R.id.mealDetailIngredients));
         mealDetails.add((TextView)findViewById(R.id.mealDetailPreparation));
 
+        ImageView mealImageView = findViewById(R.id.mealDetailImageButton);
+
         if(getIntent() != null) {
 
             String currentItemName = getIntent().getStringExtra("mealName");
 
             try{
                 Cursor cursor = db.getReadableDatabase().query("NUTRI",
-                        new String[]{"Name","Kcal","Fat","Carbohydrates","Protein","Description","Ingredients","Preparation"},
+                        new String[]{"Name","Kcal","Fat","Carbohydrates","Protein","Description","Ingredients","Preparation","ImagePath"},
                         "Name = ?",
                         new String[]{currentItemName},
                         null,null,null);
                 cursor.moveToFirst();
                 mealDetails.get(0).setText(cursor.getString(0));
-                for(int i=1;i<cursor.getColumnCount();i++){
+                for(int i=1;i<cursor.getColumnCount()-1;i++){
                     mealDetails.get(i).setText(cursor.getString(i));
                 }
+
+                String imagePath = cursor.getString(8);
+
+                if(!imagePath.equals("")){
+                    setImageView(mealImageView,imagePath);
+                }
+                else{
+                    LinearLayout imageLayout= findViewById(R.id.mealDetailImageLayout);
+                    imageLayout.setVisibility(View.GONE);
+                }
+
+                Toast.makeText(this,cursor.getString(8),Toast.LENGTH_SHORT).show();
 
                 cursor.close();
             }catch(SQLiteException exp){
@@ -57,5 +76,16 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void setImageView(ImageView mealImageView, String imagePath) {
+        File imgFile = new File(imagePath);
+
+        if(imgFile.exists()){
+            mealImageView.setImageURI(Uri.fromFile(imgFile));
+        }
+        else{
+            Log.d("Image","Nie istnieje");
+        }
     }
 }

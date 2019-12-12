@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.data.PieEntry;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,8 +39,12 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     "Name TEXT UNIQUE," +
                     "Meals LONGTEXT," +
                     "userId INTEGER REFERENCES USERS(_id) ON DELETE CASCADE ON UPDATE CASCADE," +
-                    "beginDate DATETIME," +
-                    "endDate DATETIME)";
+                    "Kcal INTEGER," +
+                    "Fat INTEGER," +
+                    "Carbohydrates INTEGER," +
+                    "Protein INTEGER," +
+                    "beginDate INTEGER," +
+                    "endDate INTEGER)";
 
     private static final String CREATE_TABLE_USER =
             "CREATE TABLE IF NOT EXISTS "+ TABLE_USER +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -50,7 +56,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     public String[] meals;
     private String[] nutriValues;
     private static final String DBNAME="NutriValue";
-    private static final int DBVER = 2;
+    private static final int DBVER = 4;
 
     public NutriDatabaseHelper(Context context) {
         super(context,DBNAME,null,DBVER);
@@ -86,6 +92,12 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
             db.insert("NUTRI",null,contentValues);
         }
 
+        //First user
+
+        contentValues.clear();
+        contentValues.put("Login","Admin");
+        contentValues.put("Password","Admin");
+        db.insert(TABLE_USER,null,contentValues);
     }
 
     @Override
@@ -278,5 +290,82 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
             System.out.println(exp.getMessage());
         }
 
+    }
+
+    public ArrayList<String> getDietNutriValuesByName(String dietName) {
+
+        ArrayList<String> ret = new ArrayList<>();
+
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"Kcal","Fat","Carbohydrates","Protein"},
+                    "Name = ?",
+                    new String[]{dietName},
+                    null,null,null);
+            if(cursor.moveToFirst()) {
+                for (int i = 0; i < 4; i++) {
+                    ret.add(cursor.getString(i));
+                }
+            }
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+
+        return ret;
+    }
+
+    public int[] getDietDatesByName(String dietName) {
+        int[] ret = new int[2];
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"beginDate","endDate"},
+                    "Name = ?",
+                    new String[]{dietName},
+                    null,null,null);
+            if(cursor.moveToFirst()) {
+                for (int i = 0; i < 2; i++) {
+                    ret[i] = cursor.getInt(i);
+                }
+            }
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+
+        return ret;
+    }
+
+
+    public ArrayList<PieEntry> getFullUserDietValuesById(int userId) {
+        ArrayList<PieEntry> ret = new ArrayList<>();
+        int[] values = new int[]{0,0,0,0};
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"Kcal","Fat","Carbohydrates","Protein"},
+                    "userId = ?",
+                    new String[]{String.valueOf(userId)},
+                    null,null,null);
+            if(cursor.moveToFirst()){
+              do{
+                for(int i=0;i<4;i++){
+                    values[i] += cursor.getInt(i);
+                }
+              }while(cursor.moveToNext());
+            }
+            else {
+                cursor.close();
+                ret = null;
+            }
+        }catch (SQLiteException exp){
+            exp.printStackTrace();
+        }
+
+        ret.add(new PieEntry(values[0],"Kcal"));
+        ret.add(new PieEntry(values[1],"Tłuszcz"));
+        ret.add(new PieEntry(values[2],"Węglowodany"));
+        ret.add(new PieEntry(values[3],"Białko"));
+
+        return ret;
     }
 }

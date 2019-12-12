@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        deleteDatabase("NutriValue");
+        //deleteDatabase("NutriValue");
 
         setContentView(R.layout.activity_main);
         mContext = this;
@@ -133,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.logInMenuButton).setVisible(false);
             menu.findItem(R.id.showDietsMenuButton).setVisible(true);
             menu.findItem(R.id.addMealMenuButton).setVisible(true);
+            menu.findItem(R.id.statsMenuButton).setVisible(true);
             menu.findItem(R.id.logOutMenuButton).setVisible(true);
         }else{
             menu.findItem(R.id.logInMenuButton).setVisible(true);
             menu.findItem(R.id.showDietsMenuButton).setVisible(false);
             menu.findItem(R.id.addMealMenuButton).setVisible(false);
+            menu.findItem(R.id.statsMenuButton).setVisible(false);
             menu.findItem(R.id.logOutMenuButton).setVisible(false);
         }
 
@@ -159,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.showDietsMenuButton:
                 intent = new Intent(MainActivity.this,DietActivity.class);
+                intent.putExtra("userId",loggedUserId);
+                startActivity(intent);
+                return true;
+            case R.id.statsMenuButton:
+                intent = new Intent(MainActivity.this,StatsActivity.class);
                 intent.putExtra("userId",loggedUserId);
                 startActivity(intent);
                 return true;

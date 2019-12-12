@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pieAvg"
+        android:title="Średnia wartość " />
+    <item
+        android:id="@+id/pieRange"
+        android:title="Zakres" />
+    <item
+        android:id="@+id/pieSavePhoto"
+        android:title="Zapisz zdjęcie" />
+</menu>

@@ -14,6 +14,10 @@
         android:title="Dodaj posiłek"
         android:visible="false" />
     <item
+        android:id="@+id/statsMenuButton"
+        android:title="Statystyka"
+        android:visible="false" />
+    <item
         android:id="@+id/logOutMenuButton"
         android:title="Wyloguj się"
         android:visible="false" />

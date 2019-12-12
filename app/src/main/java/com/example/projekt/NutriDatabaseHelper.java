@@ -337,9 +337,9 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<PieEntry> getFullUserDietValuesById(int userId) {
-        ArrayList<PieEntry> ret = new ArrayList<>();
-        int[] values = new int[]{0,0,0,0};
+    public int[] getFullUserDietValuesById(int userId) {
+        int[] ret = new int[]{0,0,0,0};
+        int dietCount=0;
         try{
             Cursor cursor = getReadableDatabase().query(TABLE_DIET,
                     new String[]{"Kcal","Fat","Carbohydrates","Protein"},
@@ -348,8 +348,9 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     null,null,null);
             if(cursor.moveToFirst()){
               do{
+                  dietCount++;
                 for(int i=0;i<4;i++){
-                    values[i] += cursor.getInt(i);
+                    ret[i] += cursor.getInt(i);
                 }
               }while(cursor.moveToNext());
             }
@@ -360,12 +361,63 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         }catch (SQLiteException exp){
             exp.printStackTrace();
         }
-
-        ret.add(new PieEntry(values[0],"Kcal"));
-        ret.add(new PieEntry(values[1],"Tłuszcz"));
-        ret.add(new PieEntry(values[2],"Węglowodany"));
-        ret.add(new PieEntry(values[3],"Białko"));
-
+        ret[0] = ret[0]/dietCount;
+        ret[1] = ret[1]/dietCount;
+        ret[2] = ret[2]/dietCount;
+        ret[3] = ret[3]/dietCount;
         return ret;
     }
+
+    public int[] getSpecificDietNutriValuesCount(int userId, int count) {
+        int[] ret = new int[]{0,0,0,0};
+        int dietCount=0;
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"Kcal","Fat","Carbohydrates","Protein"},
+                    "userId = ?",
+                    new String[]{String.valueOf(userId)},
+                    null,null,"beginDate DESC",
+                    String.valueOf(count));
+            if(cursor.moveToFirst()){
+                do{
+                    dietCount++;
+                    for(int i=0;i<4;i++){
+                        ret[i] += cursor.getInt(i);
+                    }
+                }while(cursor.moveToNext());
+            }
+            else {
+                cursor.close();
+                ret = null;
+            }
+        }catch (SQLiteException exp){
+            exp.printStackTrace();
+        }
+        ret[0] = ret[0]/dietCount;
+        ret[1] = ret[1]/dietCount;
+        ret[2] = ret[2]/dietCount;
+        ret[3] = ret[3]/dietCount;
+        return ret;
+    }
+
+    public int howMuchDietUserHas(int userId) {
+        int countRet = 0;
+
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    null,
+                    "userId = ?",
+                    new String[]{String.valueOf(userId)},
+                    null,null,null);
+
+            countRet = cursor.getCount();
+            cursor.close();
+        }catch (SQLiteException exp){
+            exp.printStackTrace();
+        }
+
+        return countRet;
+    }
+
+
 }

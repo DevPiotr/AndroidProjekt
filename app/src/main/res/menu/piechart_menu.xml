@@ -6,7 +6,7 @@
         android:title="Średnia wartość " />
     <item
         android:id="@+id/pieRange"
-        android:title="Zakres" />
+        android:title="Ilośc obejmowanych diet" />
     <item
         android:id="@+id/pieSavePhoto"
         android:title="Zapisz zdjęcie" />

@@ -148,7 +148,9 @@ public class AddNewMealActivity extends AppCompatActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+
                 }
+                break;
             case RESULT_LOAD_IMAGE_CAMERA:
                 if(resultCode == RESULT_OK && data !=null){
 
@@ -156,8 +158,8 @@ public class AddNewMealActivity extends AppCompatActivity {
                     localImagePath = data.getStringExtra("imagePath");
 
                     imageView.setImageURI(Uri.fromFile(new File(localImagePath)));
-
                 }
+                break;
         }
     }
 }

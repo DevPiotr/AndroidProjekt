@@ -5,6 +5,9 @@
         <item>Kapusta na ostro</item>
         <item>Grilowane Owoce</item>
         <item>Azjatycka sałatka z kurczakiem</item>
+        <item>Czekoladowa owsianka z pomarańczą</item>
+        <item>Kuskus z awokado, pomidorem i ogórkiem</item>
+        <item>Burger z buraka i ryżu z kuminem</item>
 
     </string-array>
 
@@ -89,7 +92,86 @@
             Na koniec dorzuć garść ugotowanego makaraonu(zimnego lub gorącego, jak wolisz) i posyp sezamem, 1 porcja.;
         </item>
 
+        <item>
+            569;
+            17;
+            90;
+            24;
 
+            Bardzo dobre śniadanie;
+
+            330 g (11⁄2 szkl.) Napój roślinny wzbogacany w wapń\n
+            60 g (6 łyżek) Płatki owsiane\n
+            10 g (2 łyżeczki) Kakao\n
+            240 g (1 szt.) Pomarańcza\n
+            10 g (2 łyżeczki) Nasiona słonecznika, dyni, chia, sezam lub siemię lniane\n
+            30 g (0,1 szkl.) Woda;
+
+            1. Płatki owsiane gotuj na napoju roślinnym, około 12 minut \n\n
+            2. Pomarańczę umyj, obierz ze skórki, pokrój w mniejsze kawałki, umieść w drugim rondelku, podlej odrobiną wody i podgrzej na małym ogniu \n\n
+            3. Owsiankę wymieszaj z pomarańczą,dodaj kakao, a następnie posyp nasionami słonecznika;
+        </item>
+
+        <item>
+            447;
+            14;
+            76;
+            15;
+
+            Przepyszny kuskus;
+
+            130 g (1 średnia szt.) Pomidor\n
+            70 g (1⁄2 szt.) Awokado\n
+            50 g (0,3 szt.) Ogórek zielony\n
+            91 g (7 łyżek) Kasza\n
+            15 g (0,2 szt.) Cytryna;
+
+            1. Kuskus wsyp do miseczki, zalej
+            wrzątkiem (niewiele ponad powierzchnię
+            kaszy), przykryj spodkiem i odstaw na 5
+            minut \n\n
+            2. Awokado, ogórka i pomidora pokrój w
+            kostkę\n\n
+            3. Do jeszcze ciepłego kuskusu dodaj sok z
+            cytryny i wymieszaj\n\n
+            4. Dodaj pokrojone warzywa;
+        </item>
+
+        <item>
+            816;
+            25;
+            145;
+            21;
+
+            To takie średnie akurat :P;
+
+            75 g (5 łyżek) Ryż brązowy\n
+            70 g (2 kromki) Pieczywo pełnoziarniste\n
+            200 g Burak\n
+            100 g (0,9 szt.) Cebula\n
+            15 g (3 łyżeczki) Nasiona słonecznika, dyni, chia, sezam lub
+            siemię lniane\n
+            24 g (3 łyżki) Bułka tarta\n
+            15 g (0,2 szt.) Cytryna\n
+            15 g (3 łyżeczki) Olej;
+
+            1. Ugotuj ryż w osolonej wodzie\n\n
+            2. Na tarce o małych oczkach zetrzyj
+            buraki. Dodaj ostudzony ryż i zacznij
+            wyrabiać masę rękoma\n\n
+            3. Na patelni z odrobiną oleju zeszklij
+            posiekaną cebulę\n\n
+            4. Dosyp podprażony słonecznik i sezam\n\n
+            5. Nasiona i bułkę tartą dodaj do masy
+            ryżowo-buraczanej. Masa musi być zwarta
+            (jeżeli jest zbyt rzadka dodaj więcej bułki
+            tartej)\n\n
+            6. Na koniec dodaj olej, dopraw solą,
+            pieprzem, papryką słodką i ostrą, kuminem,
+            mielonym imbirem, skrop sokiem z cytryny\n\n
+            7. Formuj burgery a następnie smaż na
+            złoto z obu stron\n\n
+        </item>
     </string-array>
 
 </resources>

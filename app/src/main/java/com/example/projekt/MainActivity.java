@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
         deleteDatabase("NutriValue");
 
         setContentView(R.layout.activity_main);
-
         mContext = this;
-
         db = new NutriDatabaseHelper(this);
+
+        SharedPreferences shared = getSharedPreferences("shared", MODE_PRIVATE);
 
         //region listView populate
         simpleListView = findViewById(R.id.simpleListView);
@@ -93,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //TODO Usuwanie zdjecia
                                 db.getWritableDatabase().delete("NUTRI",
                                                             "name = ?",
                                                                     new String[]{arrayList.get(mealId).get("name")});
@@ -109,7 +109,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //endregion
+
+        if(shared.contains("userId")) {
+            loggedUserId  = shared.getInt("userId",0);
+            setHelloText();
+        }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -157,11 +164,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.logOutMenuButton:
                 loggedUserId = 0;
+                clearRememberUser();
                 recreate();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearRememberUser() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared",MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
     }
 
     @Override
@@ -182,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             case CODE_LOGIN: {
                 if(resultCode == RESULT_OK) {
                     loggedUserId = (int)data.getExtras().get("userId");
-                    ((TextView)findViewById(R.id.helloText)).setText("Witaj " + db.getUserNameById(loggedUserId) + " !");
+                    setHelloText();
                 }
                 break;
             }
@@ -190,6 +203,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    private void setHelloText() {
+        String helloText = "Witaj " + db.getUserNameById(loggedUserId) + " !";
+        ((TextView)findViewById(R.id.helloText)).setText(helloText);
     }
 
     private boolean userLogged(){

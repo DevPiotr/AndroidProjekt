@@ -36,7 +36,9 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE  IF NOT EXISTS "+ TABLE_DIET +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Name TEXT UNIQUE," +
                     "Meals LONGTEXT," +
-                    "userId INTEGER REFERENCES USERS(_id) ON DELETE CASCADE ON UPDATE CASCADE)";
+                    "userId INTEGER REFERENCES USERS(_id) ON DELETE CASCADE ON UPDATE CASCADE," +
+                    "beginDate DATETIME," +
+                    "endDate DATETIME)";
 
     private static final String CREATE_TABLE_USER =
             "CREATE TABLE IF NOT EXISTS "+ TABLE_USER +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +

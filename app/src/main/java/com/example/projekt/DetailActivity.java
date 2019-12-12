@@ -1,12 +1,19 @@
 package com.example.projekt;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,8 +26,17 @@ public class DetailActivity extends AppCompatActivity {
 
     ArrayList<TextView> mealDetails = new ArrayList<>();
 
+    private Animator currentAnimator;
+
+    // The system "short" animation time duration, in milliseconds. This
+    // duration is ideal for subtle animations or animations that occur
+    // very frequently.
+    private int shortAnimationDuration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //region Populate View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
@@ -35,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
         mealDetails.add((TextView)findViewById(R.id.mealDetailIngredients));
         mealDetails.add((TextView)findViewById(R.id.mealDetailPreparation));
 
-        ImageView mealImageView = findViewById(R.id.mealDetailImageButton);
+        ImageView mealImageView = findViewById(R.id.mealDetailImage);
 
         if(getIntent() != null) {
 
@@ -75,6 +91,7 @@ public class DetailActivity extends AppCompatActivity {
             //TODO:: Zrób coś z tym że intent nie działa
         }
 
+        //endregion
 
     }
 
@@ -88,4 +105,5 @@ public class DetailActivity extends AppCompatActivity {
             Log.d("Image","Nie istnieje");
         }
     }
+
 }

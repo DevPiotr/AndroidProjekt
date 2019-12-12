@@ -27,7 +27,8 @@ import java.util.ArrayList;
 
 public class AddNewMealActivity extends AppCompatActivity {
 
-    final static int RESULT_LOAD_IMAGE_GALLERY = 11;
+    final static int RESULT_LOAD_IMAGE_GALLERY = 1;
+    final static int RESULT_LOAD_IMAGE_CAMERA = 2;
 
     ArrayList<EditText> newMealDetails = new ArrayList<>();
 
@@ -42,7 +43,9 @@ public class AddNewMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_meal);
         final NutriDatabaseHelper db = new NutriDatabaseHelper(this);
         addMealAddButton = findViewById(R.id.addMealAddButton);
-        Button addImageFromGallery = findViewById(R.id.addImageFromGalleryButton);
+        Button addImageFromGalleryButton = findViewById(R.id.addImageFromGalleryButton);
+        Button addImageFromCameraButton = findViewById(R.id.addImageFromCameraButton);
+
 
         newMealDetails.add((EditText)findViewById(R.id.addMealName));
         newMealDetails.add((EditText)findViewById(R.id.addMealKcal));
@@ -96,7 +99,7 @@ public class AddNewMealActivity extends AppCompatActivity {
             }
         });
 
-        addImageFromGallery.setOnClickListener(new View.OnClickListener() {
+        addImageFromGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -104,15 +107,26 @@ public class AddNewMealActivity extends AppCompatActivity {
                 startActivityForResult(i, RESULT_LOAD_IMAGE_GALLERY);
             }
         });
+
+        addImageFromCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AddNewMealActivity.this,Camera.class);
+                startActivityForResult(i,RESULT_LOAD_IMAGE_CAMERA);
+            }
+        });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        ImageView imageView = findViewById(R.id.mealImage);
+
         switch(requestCode){
             case RESULT_LOAD_IMAGE_GALLERY:
-                if(resultCode == RESULT_OK || data != null){
+                if(resultCode == RESULT_OK && data != null){
 
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -125,7 +139,7 @@ public class AddNewMealActivity extends AppCompatActivity {
                     localImagePath = cursor.getString(columnIndex);
                     cursor.close();
 
-                    ImageView imageView = findViewById(R.id.mealImage);
+
                     imageView.setVisibility(View.VISIBLE);
 
                     try {
@@ -134,7 +148,14 @@ public class AddNewMealActivity extends AppCompatActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+                }
+            case RESULT_LOAD_IMAGE_CAMERA:
+                if(resultCode == RESULT_OK && data !=null){
 
+                    imageView.setVisibility(View.VISIBLE);
+                    localImagePath = data.getStringExtra("imagePath");
+
+                    imageView.setImageURI(Uri.fromFile(new File(localImagePath)));
 
                 }
         }

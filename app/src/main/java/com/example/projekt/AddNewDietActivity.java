@@ -19,7 +19,8 @@ import java.util.HashMap;
 
 public class AddNewDietActivity extends AppCompatActivity {
 
-    EditText newDietName;
+    EditText newDietName,beginDate,endDate;
+
 
     ArrayList<TextView> nutriValues = new ArrayList<>();
     ArrayList<String> mealNames;
@@ -42,6 +43,9 @@ public class AddNewDietActivity extends AppCompatActivity {
 
         newDietName = findViewById(R.id.newDietName);
         newDietAddButton = findViewById(R.id.newDietAddButton);
+        beginDate = findViewById(R.id.beginDateInput);
+        endDate = findViewById(R.id.endDateInput);
+
 
         //ArrayList NutriValues Init
         nutriValues.add((TextView)findViewById(R.id.newDietKcal));

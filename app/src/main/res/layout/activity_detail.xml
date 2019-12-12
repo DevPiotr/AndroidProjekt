@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mealDetailContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -25,7 +26,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/mealDetailNutriLayout"
@@ -55,7 +57,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="@string/mealDetailKcal" />
+                    android:text="@string/mealDetailKcal"
+                    android:textSize="13sp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -67,7 +70,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/mealDetailPlaceholder" />
+                    android:text="@string/mealDetailPlaceholder"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="@string/mealDetailFat" />
+                    android:text="@string/mealDetailFat"
+                    android:textSize="13sp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -93,7 +98,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/mealDetailPlaceholder" />
+                    android:text="@string/mealDetailPlaceholder"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +113,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="@string/mealDetailCarbohydrates" />
+                    android:text="@string/mealDetailCarbohydrates"
+                    android:textSize="13sp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -119,7 +126,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/mealDetailPlaceholder" />
+                    android:text="@string/mealDetailPlaceholder"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -133,7 +141,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="@string/mealDetailProtein" />
+                    android:text="@string/mealDetailProtein"
+                    android:textSize="13sp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -145,7 +154,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/mealDetailPlaceholder" />
+                    android:text="@string/mealDetailPlaceholder"
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -157,8 +167,8 @@
             android:orientation="vertical"
             tools:visibility="visible">
 
-            <ImageButton
-                android:id="@+id/mealDetailImageButton"
+            <ImageView
+                android:id="@+id/mealDetailImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible" />
@@ -241,13 +251,6 @@
         </LinearLayout>
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/mealDetailExpandedImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="Expanded Image"
-        android:visibility="invisible" />
 
 
 

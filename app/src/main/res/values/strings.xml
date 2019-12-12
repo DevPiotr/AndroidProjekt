@@ -29,7 +29,8 @@
     <string name="addNewDietActivityNewDietPlaceholder">Nazwa diety</string>
     <string name="addNewDietActivityMealsText">Posiłki do wyboru:</string>
     <string name="addNewDietActivityAddDietButton">Stwórz dietę!</string>
-    e
+    <string name="addNewDietActivityBeginDateText">Data rozpoczęcia</string>
+    <string name="addNewDietActivityEndDateText">Data zakończenia</string>
     <!-- Diet Activity -->
     <string name="DietActivityText">Diety</string>
 
@@ -37,6 +38,7 @@
     <string name="login">Login</string>
     <string name="password">Hasło</string>
     <string name="loginButton">Zaloguj</string>
+    <string name="checkBoxText">Zapamiętaj mnie</string>
     <string name="info">*Jeśli nie posiadasz konta pierwsze logowanie Jest rejestracją :)</string>
 
 </resources>

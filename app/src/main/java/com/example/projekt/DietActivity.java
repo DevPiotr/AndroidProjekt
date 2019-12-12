@@ -41,7 +41,12 @@ public class DietActivity extends AppCompatActivity {
 
         dietListView = findViewById(R.id.dietListView);
 
-        ArrayList<String> dietNames = db.getUserDietNames(loggedUserId);
+        ArrayList<String> dietNames ;
+
+        if(db.userIsAdmin(loggedUserId))
+            dietNames = db.getAllDietNames();
+        else
+            dietNames = db.getUserDietNames(loggedUserId);
 
         for (int i=0; i<dietNames.size();i++){
             HashMap<String,String> hashMap = new HashMap<>();
@@ -50,7 +55,7 @@ public class DietActivity extends AppCompatActivity {
         }
 
         String[] from = {"name"};
-        int[] to = {R.id.textView};
+        int[] to = {R.id.usernameList};
         simpleAdapter =
                 new SimpleAdapter(this,arrayList,R.layout.list_view_items,from,to);
         dietListView.setAdapter(simpleAdapter);

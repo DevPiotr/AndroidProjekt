@@ -26,13 +26,6 @@ public class DetailActivity extends AppCompatActivity {
 
     ArrayList<TextView> mealDetails = new ArrayList<>();
 
-    private Animator currentAnimator;
-
-    // The system "short" animation time duration, in milliseconds. This
-    // duration is ideal for subtle animations or animations that occur
-    // very frequently.
-    private int shortAnimationDuration;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

@@ -5,18 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ListViewItemsActivity">
+    tools:context=".UserManagementActivity" >
 
     <TextView
-        android:id="@+id/usernameList"
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Demo"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        android:text="Użytkownicy"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <Space
+    <ListView
+        android:id="@+id/userListView"
         android:layout_width="match_parent"
-        android:layout_height="8dp" />
+        android:layout_height="wrap_content"
+        android:divider="#000"
+        android:dividerHeight="2dp"
+        android:listSelector="#E57373" />
 </LinearLayout>

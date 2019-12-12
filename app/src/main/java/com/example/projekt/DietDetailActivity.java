@@ -51,7 +51,7 @@ public class DietDetailActivity extends AppCompatActivity {
             arrayList.add(hashMap);
         }
         String[] from = {"name"};
-        int[] to = {R.id.textView};
+        int[] to = {R.id.usernameList};
         simpleAdapter =
                 new SimpleAdapter(this,arrayList,R.layout.list_view_items,from,to);
         mealListView.setAdapter(simpleAdapter);

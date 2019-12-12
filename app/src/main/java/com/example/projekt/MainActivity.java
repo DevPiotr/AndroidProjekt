@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String[] from = {"name"};
-        int[] to = {R.id.textView};
+        int[] to = {R.id.usernameList};
         simpleAdapter = new SimpleAdapter(this,arrayList,R.layout.list_view_items,from,to);
 
         simpleListView.setAdapter(simpleAdapter);
@@ -135,12 +134,18 @@ public class MainActivity extends AppCompatActivity {
             menu.findItem(R.id.addMealMenuButton).setVisible(true);
             menu.findItem(R.id.statsMenuButton).setVisible(true);
             menu.findItem(R.id.logOutMenuButton).setVisible(true);
+            if(db.userIsAdmin(loggedUserId)){
+                menu.findItem(R.id.statsMenuButton).setVisible(false);
+                menu.findItem(R.id.showDietsMenuButton).setTitle("Sprawdź diety");
+                menu.findItem(R.id.checkUsersMenuButton).setVisible(true);
+            }
         }else{
             menu.findItem(R.id.logInMenuButton).setVisible(true);
             menu.findItem(R.id.showDietsMenuButton).setVisible(false);
             menu.findItem(R.id.addMealMenuButton).setVisible(false);
             menu.findItem(R.id.statsMenuButton).setVisible(false);
             menu.findItem(R.id.logOutMenuButton).setVisible(false);
+            menu.findItem(R.id.checkUsersMenuButton).setVisible(false);
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -162,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.showDietsMenuButton:
                 intent = new Intent(MainActivity.this,DietActivity.class);
                 intent.putExtra("userId",loggedUserId);
+                startActivity(intent);
+                return true;
+            case R.id.checkUsersMenuButton:
+                intent = new Intent(MainActivity.this,UserManagementActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.statsMenuButton:

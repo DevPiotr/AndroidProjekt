@@ -46,23 +46,24 @@ public class StatsActivity extends AppCompatActivity {
         if(values == null){
             Toast.makeText(StatsActivity.this,"Brak danych",Toast.LENGTH_LONG).show();
             finish();
+        }else {
+
+            pieChart.getLegend().setEnabled(false);
+            pieChart.setCenterTextSize(20);
+
+            Description description = pieChart.getDescription();
+
+            description.setText("Średnie wartości odżywcze z wszystkich diet");
+            description.setTextSize(17);
+
+            pieChart.setDescription(description);
+
+            pieChart.animateXY(800, 800);
+
+            setPieChartData(values);
+
+            setContentView(pieChart);
         }
-
-        pieChart.getLegend().setEnabled(false);
-        pieChart.setCenterTextSize(20);
-
-        Description description = pieChart.getDescription();
-
-        description.setText("Średnie wartości odżywcze z wszystkich diet");
-        description.setTextSize(17);
-
-        pieChart.setDescription(description);
-
-        pieChart.animateXY(800,800);
-
-        setPieChartData(values);
-
-        setContentView(pieChart);
     }
 
     private void setPieChartData(int[] values) {

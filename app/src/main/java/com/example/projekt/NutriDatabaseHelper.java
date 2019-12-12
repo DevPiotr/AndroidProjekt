@@ -49,7 +49,8 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USER =
             "CREATE TABLE IF NOT EXISTS "+ TABLE_USER +"(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Login TEXT UNIQUE," +
-                    "Password TEXT)";
+                    "Password TEXT," +
+                    "isAdmin INTEGER)";
 
 
 
@@ -97,6 +98,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         contentValues.clear();
         contentValues.put("Login","Admin");
         contentValues.put("Password","Admin");
+        contentValues.put("isAdmin",1);
         db.insert(TABLE_USER,null,contentValues);
     }
 
@@ -136,6 +138,52 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     null,
                     null,
                     null,null,null);
+            if(cursor.moveToFirst()) {
+                do {
+                    ret.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+        return ret;
+    }
+
+    public ArrayList<String> getUserNames() {
+        ArrayList<String> ret = new ArrayList<>();
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_USER,
+                    new String[]{"Login","isAdmin"},
+                    null,
+                    null,
+                    null,null,null);
+            if(cursor.moveToFirst()) {
+                do {
+                    if(cursor.getInt(1) == 0)
+                        ret.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }catch(SQLiteException exp){
+            System.out.println(exp.getMessage());
+        }
+        return ret;
+
+    }
+
+    public ArrayList<String> getAllDietNames() {
+
+        ArrayList<String> ret = new ArrayList<>();
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    new String[]{"Name"},
+                    null,
+                    null,
+                    null,null,null);
+
             if(cursor.moveToFirst()) {
                 do {
                     ret.add(cursor.getString(0));
@@ -257,6 +305,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
 
         contentValue.put("Login",login);
         contentValue.put("Password",password);
+        contentValue.put("isAdmin",0);
         getWritableDatabase().insert(TABLE_USER,null,contentValue);
     }
 
@@ -353,6 +402,11 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
                     ret[i] += cursor.getInt(i);
                 }
               }while(cursor.moveToNext());
+
+                ret[0] = ret[0]/dietCount;
+                ret[1] = ret[1]/dietCount;
+                ret[2] = ret[2]/dietCount;
+                ret[3] = ret[3]/dietCount;
             }
             else {
                 cursor.close();
@@ -361,10 +415,7 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         }catch (SQLiteException exp){
             exp.printStackTrace();
         }
-        ret[0] = ret[0]/dietCount;
-        ret[1] = ret[1]/dietCount;
-        ret[2] = ret[2]/dietCount;
-        ret[3] = ret[3]/dietCount;
+
         return ret;
     }
 
@@ -419,5 +470,65 @@ public class NutriDatabaseHelper extends SQLiteOpenHelper {
         return countRet;
     }
 
+    public int howMuchDietUserHas(String login) {
+        int countRet = 0;
 
+        int userId = getUserIdByName(login);
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_DIET,
+                    null,
+                    "userId = ?",
+                    new String[]{String.valueOf(userId)},
+                    null,null,null);
+
+            countRet = cursor.getCount();
+            cursor.close();
+        }catch (SQLiteException exp){
+            exp.printStackTrace();
+        }
+
+        return countRet;
+    }
+
+    public int getUserIdByName(String login) {
+        int userId = 0;
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_USER,
+                    new String[]{"_id"},
+                    "Login = ?",
+                    new String[]{String.valueOf(login)},
+                    null,null,null);
+            if(cursor.moveToFirst()){
+                userId = cursor.getInt(0) ;
+            }
+            cursor.close();
+        }catch (SQLiteException exp){
+            exp.printStackTrace();
+        }
+
+        return userId;
+    }
+
+    public boolean userIsAdmin(int loggedUserId) {
+
+        boolean ret = false;
+        try{
+            Cursor cursor = getReadableDatabase().query(TABLE_USER,
+                    new String[]{"isAdmin"},
+                    "_id = ?",
+                    new String[]{String.valueOf(loggedUserId)},
+                    null,null,null);
+
+            if(cursor.moveToFirst()){
+                if(cursor.getInt(0) == 1){
+                    ret = true;
+                }
+            }
+            cursor.close();
+        }catch (SQLiteException exp){
+            exp.printStackTrace();
+        }
+
+        return ret;
+    }
 }

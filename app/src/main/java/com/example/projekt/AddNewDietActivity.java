@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -74,7 +73,7 @@ public class AddNewDietActivity extends AppCompatActivity {
 
         //region populateList
         String[] from = {"name"};
-        int[] to = {R.id.textView};
+        int[] to = {R.id.usernameList};
         simpleAdapter =
                 new SimpleAdapter(this,arrayList,R.layout.list_view_items,from,to);
         listView.setAdapter(simpleAdapter);
